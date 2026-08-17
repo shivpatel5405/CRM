@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-xgbohn+7nadjdm%iwh0!_*d86868(u@^*&tz5lv1i(-*=#&zyj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # Third Party Apps
+    'rest_framework',
+    
     # Local Apps
     'accounts',
     'customers',
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'opportunities',
     'tasks',
     'dashboard',
+    'api',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -143,4 +147,17 @@ MAILERS = {
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'profile'
 LOGOUT_REDIRECT_URL = 'login'
+
+# Django REST Framework Settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+}
 

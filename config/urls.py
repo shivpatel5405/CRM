@@ -11,4 +11,6 @@ urlpatterns = [
     path('leads/', include('leads.urls')),
     path('opportunities/', include('opportunities.urls')),
     path('tasks/', include('tasks.urls')),
+    path('api/', include('api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
