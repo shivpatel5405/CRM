@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'leads',
     'opportunities',
     'tasks',
+    'dashboard',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
