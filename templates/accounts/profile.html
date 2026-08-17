@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile - CRM System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- User Info Card -->
+    <div class="col-lg-4 mb-4">
+        <div class="card shadow-sm border-0 text-center p-4">
+            <div class="mb-3">
+                <div class="bg-primary text-white rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px; font-size: 2rem;">
+                    {{ user.first_name|first|default:user.username|first|upper }}
+                </div>
+            </div>
+            <h5 class="fw-bold mb-1">{{ user.get_full_name|default:user.username }}</h5>
+            <p class="text-muted small mb-2">@{{ user.username }}</p>
+
+            <div class="mb-3">
+                {% if user.role == 'ADMIN' %}
+                    <span class="badge badge-role-admin px-3 py-2 fs-6">Admin</span>
+                {% elif user.role == 'MANAGER' %}
+                    <span class="badge badge-role-manager px-3 py-2 fs-6">Manager</span>
+                {% else %}
+                    <span class="badge badge-role-sales px-3 py-2 fs-6">Sales Representative</span>
+                {% endif %}
+            </div>
+
+            <hr class="my-3">
+
+            <div class="row text-center">
+                <div class="col-4">
+                    <h5 class="fw-bold mb-0 text-primary">{{ assigned_customers_count }}</h5>
+                    <small class="text-muted">Customers</small>
+                </div>
+                <div class="col-4">
+                    <h5 class="fw-bold mb-0 text-success">{{ assigned_leads_count }}</h5>
+                    <small class="text-muted">Leads</small>
+                </div>
+                <div class="col-4">
+                    <h5 class="fw-bold mb-0 text-warning">{{ assigned_tasks_count }}</h5>
+                    <small class="text-muted">Tasks</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Form -->
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-gear me-2"></i>Edit Profile Information</h5>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">First Name</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Last Name</label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Email Address</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Phone Number</label>
+                            {{ form.phone }}
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Bio / Notes</label>
+                        {{ form.bio }}
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-save me-1"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

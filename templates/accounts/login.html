@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - CRM System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center min-vh-75">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-primary text-white text-center py-4 rounded-top">
+                <h4 class="mb-0 fw-bold"><i class="bi bi-building-gear me-2"></i>Django CRM</h4>
+                <p class="small text-white-50 mb-0 mt-1">Sign in to your account</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label font-weight-bold">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-person"></i></span>
+                            <input type="text" name="username" class="form-control" id="id_username" placeholder="Enter username" required autofocus>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label font-weight-bold">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                            <input type="password" name="password" class="form-control" id="id_password" placeholder="Enter password" required>
+                        </div>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary py-2 fw-semibold">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Log In
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer bg-light text-center py-3">
+                <span class="text-muted small">Don't have an account? <a href="{% url 'register' %}" class="fw-semibold text-primary">Register Here</a></span>
+            </div>
+        </div>
+
+        <div class="card mt-3 bg-light border-0 shadow-sm">
+            <div class="card-body p-3">
+                <h6 class="fw-bold mb-2 text-dark small"><i class="bi bi-info-circle me-1"></i> Demo Credentials:</h6>
+                <div class="small text-muted">
+                    <div><strong>Admin:</strong> <code>admin</code> / <code>admin123</code></div>
+                    <div><strong>Manager:</strong> <code>manager1</code> / <code>manager123</code></div>
+                    <div><strong>Sales Rep:</strong> <code>sales1</code> / <code>sales123</code></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
