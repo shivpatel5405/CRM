@@ -90,7 +90,6 @@ CRM/
 ├── db.sqlite3               # Local SQLite database
 ├── requirements.txt         # Project dependencies
 ├── .env.example             # Environment variables template
-├── .gitignore               # Excluded git files
 │
 ├── config/                  # Core project configuration
 │   ├── settings.py          # Settings & INSTALLED_APPS
