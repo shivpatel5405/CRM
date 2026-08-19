@@ -117,7 +117,7 @@ Ensure you have **Python 3.10+** and **Git** installed.
 
 ### 2. Clone Repository
 ```cmd
-git clone https://github.com/your-username/django-crm.git
+git clone https://github.com/your-username/django-crm.git 
 cd django-crm
 ```
 
