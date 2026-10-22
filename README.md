@@ -8,7 +8,7 @@
 
 A production-grade, full-stack **Customer Relationship Management (CRM) System** built with Python, Django, SQLite, Bootstrap 5, Chart.js, and Django REST Framework. 
 
-Designed specifically to demonstrate real-world backend engineering, role-based security, relational database modeling, business workflow automation, interactive data visualization, and RESTful API architecture.
+📖 **For detailed operational workflows, UI navigation, and user instructions, see the [Complete User & Operational Guide](USER_GUIDE.md).**
 
 ---
 

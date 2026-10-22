@@ -1,20 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Login - CRM System{% endblock %}
+{% block title %}Sign In - Enterprise CRM{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center align-items-center min-vh-75">
-    <div class="col-md-5 col-lg-4">
+<div class="d-flex align-items-center justify-content-center py-5 min-vh-75">
+    <div style="width: 100%; max-width: 420px;">
         <div class="card shadow-lg border-0">
-            <div class="card-header bg-primary text-white text-center py-4 rounded-top">
-                <h4 class="mb-0 fw-bold"><i class="bi bi-building-gear me-2"></i>Django CRM</h4>
-                <p class="small text-white-50 mb-0 mt-1">Sign in to your account</p>
+            <div class="auth-header">
+                <div class="brand-icon mx-auto mb-3" style="width: 48px; height: 48px; font-size: 1.5rem;">
+                    <i class="bi bi-layers-half"></i>
+                </div>
+                <h4 class="fw-bold mb-1" style="letter-spacing: -0.02em;">Welcome to Enterprise CRM</h4>
+                <p class="text-muted small mb-0">Sign in to your sales workspace</p>
             </div>
+            
             <div class="card-body p-4">
                 <form method="post">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="id_username" class="form-label font-weight-bold">Username</label>
+                        <label for="id_username" class="form-label">Username</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-person"></i></span>
                             <input type="text" name="username" class="form-control" id="id_username" placeholder="Enter username" required autofocus>
@@ -22,32 +26,46 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="id_password" class="form-label font-weight-bold">Password</label>
+                        <label for="id_password" class="form-label">Password</label>
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                            <input type="password" name="password" class="form-control" id="id_password" placeholder="Enter password" required>
+                            <input type="password" name="password" class="form-control" id="id_password" placeholder="••••••••" required>
                         </div>
                     </div>
 
                     <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary py-2 fw-semibold">
-                            <i class="bi bi-box-arrow-in-right me-1"></i> Log In
+                        <button type="submit" class="btn btn-primary py-2 fw-semibold shadow-sm">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Sign In to Dashboard
                         </button>
                     </div>
                 </form>
             </div>
-            <div class="card-footer bg-light text-center py-3">
-                <span class="text-muted small">Don't have an account? <a href="{% url 'register' %}" class="fw-semibold text-primary">Register Here</a></span>
+            
+            <div class="card-footer bg-subtle text-center py-3">
+                <span class="text-muted small">Need an account? <a href="{% url 'register' %}" class="fw-semibold text-primary text-decoration-none">Create an account</a></span>
             </div>
         </div>
 
-        <div class="card mt-3 bg-light border-0 shadow-sm">
+        <!-- Quick Demo Credentials Box -->
+        <div class="card mt-3 border-0 bg-subtle shadow-xs">
             <div class="card-body p-3">
-                <h6 class="fw-bold mb-2 text-dark small"><i class="bi bi-info-circle me-1"></i> Demo Credentials:</h6>
-                <div class="small text-muted">
-                    <div><strong>Admin:</strong> <code>admin</code> / <code>admin123</code></div>
-                    <div><strong>Manager:</strong> <code>manager1</code> / <code>manager123</code></div>
-                    <div><strong>Sales Rep:</strong> <code>sales1</code> / <code>sales123</code></div>
+                <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-key-fill text-primary"></i>
+                    <span class="fw-bold small text-main">Demo Access Credentials:</span>
+                </div>
+                <div class="small text-muted d-flex flex-column gap-1">
+                    <div class="d-flex justify-content-between">
+                        <span>Admin:</span>
+                        <code>admin / admin123</code>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Manager:</span>
+                        <code>manager1 / manager123</code>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Sales Rep:</span>
+                        <code>sales1 / sales123</code>
+                    </div>
                 </div>
             </div>
         </div>
