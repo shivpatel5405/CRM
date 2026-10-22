@@ -90,7 +90,6 @@ CRM/
 ├── db.sqlite3               # Local SQLite database
 ├── requirements.txt         # Project dependencies
 ├── .env.example             # Environment variables template
-├── .gitignore               # Excluded git files
 │
 ├── config/                  # Core project configuration
 │   ├── settings.py          # Settings & INSTALLED_APPS
@@ -117,7 +116,7 @@ Ensure you have **Python 3.10+** and **Git** installed.
 
 ### 2. Clone Repository
 ```cmd
-git clone https://github.com/your-username/django-crm.git
+git clone https://github.com/your-username/django-crm.git 
 cd django-crm
 ```
 
@@ -137,12 +136,8 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-### 6. (Optional) Seed Sample Test Data
-```cmd
-python manage.py shell -c "exec(open(r'C:\Users\shivp\.gemini\antigravity-ide\brain\fc2adc1d-d606-493d-a557-bacbf1b9de9f\scratch\seed_data.py').read())"
-```
 
-### 7. Run Local Server
+### 6. Run Local Server
 ```cmd
 python manage.py runserver
 ```
@@ -181,13 +176,6 @@ Run the full Django unit test suite:
 python manage.py test
 ```
 
-Expected Output:
-```text
-Ran 7 tests in 12.442s
-OK
-```
-
----
 
 ## 📄 License
 This project is open-source under the [MIT License](LICENSE).
