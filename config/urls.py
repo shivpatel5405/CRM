@@ -1,9 +1,14 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
+from dashboard.views import landing_page_view
+
+# Django Admin Portal Customization
+admin.site.site_header = "Enterprise CRM Administration"
+admin.site.site_title = "Enterprise CRM Admin Portal"
+admin.site.index_title = "CRM System Governance & Data Management"
 
 urlpatterns = [
-    path('', lambda request: redirect('dashboard'), name='root-redirect'),
+    path('', landing_page_view, name='landing-page'),
     path('admin/', admin.site.urls),
     path('dashboard/', include('dashboard.urls')),
     path('accounts/', include('accounts.urls')),

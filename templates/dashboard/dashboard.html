@@ -22,13 +22,13 @@
 <div class="row g-3 mb-4">
     <!-- Card 1: Total Customers -->
     <div class="col-sm-6 col-xl-3">
-        <div class="kpi-card" style="--kpi-color: var(--primary);">
+        <div class="kpi-card kpi-card-indigo">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
                     <span class="kpi-label">Total Accounts</span>
                     <div class="kpi-value">{{ total_customers }}</div>
                 </div>
-                <div class="kpi-icon-box" style="background: var(--primary-subtle); color: var(--primary);">
+                <div class="kpi-icon-box">
                     <i class="bi bi-building"></i>
                 </div>
             </div>
@@ -40,13 +40,13 @@
 
     <!-- Card 2: Active Leads -->
     <div class="col-sm-6 col-xl-3">
-        <div class="kpi-card" style="--kpi-color: var(--accent-cyan);">
+        <div class="kpi-card kpi-card-cyan">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
                     <span class="kpi-label">Active Prospects</span>
                     <div class="kpi-value">{{ total_leads }}</div>
                 </div>
-                <div class="kpi-icon-box" style="background: var(--accent-cyan-subtle); color: var(--accent-cyan);">
+                <div class="kpi-icon-box">
                     <i class="bi bi-funnel"></i>
                 </div>
             </div>
@@ -58,13 +58,13 @@
 
     <!-- Card 3: Closed Won Revenue -->
     <div class="col-sm-6 col-xl-3">
-        <div class="kpi-card" style="--kpi-color: var(--accent-emerald);">
+        <div class="kpi-card kpi-card-emerald">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
                     <span class="kpi-label">Won Revenue</span>
-                    <div class="kpi-value" style="color: var(--accent-emerald);">${{ total_sales_value|floatformat:0 }}</div>
+                    <div class="kpi-value text-emerald">${{ total_sales_value|floatformat:0 }}</div>
                 </div>
-                <div class="kpi-icon-box" style="background: var(--accent-emerald-subtle); color: var(--accent-emerald);">
+                <div class="kpi-icon-box">
                     <i class="bi bi-currency-dollar"></i>
                 </div>
             </div>
@@ -76,13 +76,13 @@
 
     <!-- Card 4: Tasks & Follow-ups -->
     <div class="col-sm-6 col-xl-3">
-        <div class="kpi-card" style="--kpi-color: {% if overdue_tasks > 0 %}var(--accent-rose){% else %}var(--accent-amber){% endif %};">
+        <div class="kpi-card {% if overdue_tasks > 0 %}kpi-card-rose{% else %}kpi-card-amber{% endif %}">
             <div class="d-flex justify-content-between align-items-start">
                 <div>
                     <span class="kpi-label">Pending Tasks</span>
                     <div class="kpi-value">{{ pending_tasks }}</div>
                 </div>
-                <div class="kpi-icon-box" style="background: {% if overdue_tasks > 0 %}var(--accent-rose-subtle){% else %}var(--accent-amber-subtle){% endif %}; color: {% if overdue_tasks > 0 %}var(--accent-rose){% else %}var(--accent-amber){% endif %};">
+                <div class="kpi-icon-box">
                     <i class="bi bi-calendar-check"></i>
                 </div>
             </div>
@@ -242,15 +242,33 @@
 {% block extra_js %}
 <!-- Chart.js Library -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Embedded Chart Data (Safe application/json script blocks) -->
+<script id="leadStageLabelsData" type="application/json">{{ lead_stage_labels_json|safe }}</script>
+<script id="leadStageCountsData" type="application/json">{{ lead_stage_data_json|safe }}</script>
+<script id="opStageLabelsData" type="application/json">{{ op_stage_labels_json|safe }}</script>
+<script id="opStageCountsData" type="application/json">{{ op_stage_data_json|safe }}</script>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
     const textColor = isDark ? '#94a3b8' : '#64748b';
     const gridColor = isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.05)';
 
+    function getJsonData(id) {
+        const el = document.getElementById(id);
+        if (!el) return [];
+        try {
+            return JSON.parse(el.textContent || '[]');
+        } catch (e) {
+            console.error('Failed to parse data for ' + id, e);
+            return [];
+        }
+    }
+
     // Lead Stage Doughnut Chart
-    const leadLabels = {{ lead_stage_labels_json|safe }};
-    const leadData = {{ lead_stage_data_json|safe }};
+    const leadLabels = getJsonData('leadStageLabelsData');
+    const leadData = getJsonData('leadStageCountsData');
 
     const ctxLead = document.getElementById('leadStageChart');
     if (ctxLead) {
@@ -287,8 +305,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Opportunity Bar Chart
-    const opLabels = {{ op_stage_labels_json|safe }};
-    const opData = {{ op_stage_data_json|safe }};
+    const opLabels = getJsonData('opStageLabelsData');
+    const opData = getJsonData('opStageCountsData');
 
     const ctxOp = document.getElementById('opportunityStageChart');
     if (ctxOp) {

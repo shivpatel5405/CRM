@@ -3,6 +3,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.utils.http import url_has_allowed_host_and_scheme
 from .forms import UserRegistrationForm, UserProfileForm
 
 
@@ -38,8 +39,10 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Welcome back, {user.first_name or user.username}!")
-                next_url = request.GET.get('next', 'dashboard')
-                return redirect(next_url)
+                next_url = request.GET.get('next', '')
+                if next_url and url_has_allowed_host_and_scheme(url=next_url, allowed_hosts={request.get_host()}):
+                    return redirect(next_url)
+                return redirect('dashboard')
         messages.error(request, "Invalid username or password.")
     else:
         form = AuthenticationForm()

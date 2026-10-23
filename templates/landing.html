@@ -1,0 +1,854 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise CRM — Close More Deals & Scale Customer Growth</title>
+    <meta name="description" content="The modern, full-stack Customer Relationship Management platform engineered for high-growth businesses. Streamline lead qualification, visual Kanban pipelines, and customer 360° intelligence.">
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom Enterprise CSS with Cache Buster -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?v=4.0">
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('crm_theme') || 'light';
+            document.documentElement.setAttribute('data-bs-theme', savedTheme);
+        })();
+    </script>
+</head>
+<body class="landing-body">
+
+    <!-- Sticky Glassmorphism Header -->
+    <header class="landing-header">
+        <div class="container h-100 d-flex align-items-center justify-content-between">
+            <a href="{% url 'landing-page' %}" class="d-flex align-items-center text-decoration-none">
+                <div class="brand-icon">
+                    <i class="bi bi-layers-half"></i>
+                </div>
+                <div>
+                    <div class="d-flex align-items-center">
+                        <span class="brand-title" style="color: var(--text-main);">Enterprise</span>
+                        <span class="brand-badge">CRM</span>
+                    </div>
+                    <span class="brand-sub" style="color: var(--text-muted);">SaaS Platform</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="d-none d-lg-flex align-items-center gap-1">
+                <a href="#features" class="landing-nav-link">Features</a>
+                <a href="#workflow" class="landing-nav-link">Pipeline</a>
+                <a href="#solutions" class="landing-nav-link">Solutions</a>
+                <a href="#pricing" class="landing-nav-link">Pricing</a>
+                <a href="#faq" class="landing-nav-link">FAQ</a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="d-flex align-items-center gap-3">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" class="theme-toggle-btn" type="button" title="Toggle color scheme" aria-label="Toggle light or dark theme">
+                    <i class="bi bi-sun-fill" id="themeSunIcon"></i>
+                    <i class="bi bi-moon-stars-fill d-none" id="themeMoonIcon"></i>
+                </button>
+
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="btn btn-hero-primary d-inline-flex align-items-center gap-2">
+                        <span>Go to Dashboard</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-hero-secondary d-none d-sm-inline-flex">
+                        Sign In
+                    </a>
+                    <a href="{% url 'register' %}" class="btn btn-hero-primary d-inline-flex align-items-center gap-2">
+                        <span>Get Started Free</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <!-- Ambient Glowing Aura -->
+        <div class="hero-glow-aura"></div>
+
+        <div class="container position-relative">
+            <!-- Announcement Pill -->
+            <div class="announcement-badge">
+                <span class="badge-glow-dot"></span>
+                <span>Enterprise CRM 2.0 • High-Velocity Architecture Released</span>
+                <i class="bi bi-chevron-right text-primary opacity-75" style="font-size: 0.75rem;"></i>
+            </div>
+
+            <!-- Hero Headline -->
+            <h1 class="hero-title">
+                Close More Deals.<br>
+                <span class="gradient-text">Accelerate Your Sales Pipeline.</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="hero-subtitle">
+                The modern CRM engineered for ambitious teams. Unify customer intelligence, streamline lead qualification on visual Kanban boards, and forecast revenue with atomic data precision.
+            </p>
+
+            <!-- Dual CTAs -->
+            <div class="hero-cta-group">
+                <a href="{% url 'register' %}" class="btn btn-hero-primary">
+                    <i class="bi bi-rocket-takeoff-fill"></i>
+                    <span>Start Free Workspace</span>
+                    <i class="bi bi-arrow-right"></i>
+                </a>
+                <a href="{% url 'login' %}" class="btn btn-hero-secondary">
+                    <i class="bi bi-play-circle-fill text-primary"></i>
+                    <span>Explore Live Demo</span>
+                </a>
+            </div>
+
+            <!-- Trust Signals -->
+            <div class="hero-trust-strip">
+                <span class="trust-item"><i class="bi bi-check-circle-fill text-success"></i> Instant Setup</span>
+                <span class="trust-item"><i class="bi bi-shield-check text-primary"></i> Role-Based Governance (RBAC)</span>
+                <span class="trust-item"><i class="bi bi-braces text-info"></i> REST API Ready</span>
+                <span class="trust-item"><i class="bi bi-key-fill text-warning"></i> Demo Accounts Included</span>
+            </div>
+
+            <!-- Browser Mockup Showcase -->
+            <div class="mockup-container">
+                <div class="mockup-window">
+                    <!-- Title Bar -->
+                    <div class="mockup-titlebar">
+                        <div class="window-dots">
+                            <span class="window-dot window-dot-red"></span>
+                            <span class="window-dot window-dot-yellow"></span>
+                            <span class="window-dot window-dot-green"></span>
+                        </div>
+                        <div class="mockup-url-bar">
+                            <i class="bi bi-lock-fill text-success" style="font-size: 0.65rem;"></i>
+                            <span>crm.enterprise.internal/pipeline/</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Internal Simulated SaaS Dashboard -->
+                    <div class="mockup-app-layout text-start">
+                        <!-- Mini Left Sidebar -->
+                        <div class="mockup-sidebar d-none d-md-flex">
+                            <div class="d-flex align-items-center gap-2 px-2 py-3 mb-2 border-bottom border-secondary border-opacity-25">
+                                <div class="bg-primary text-white rounded p-1 d-flex align-items-center justify-content-center" style="width: 24px; height: 24px; font-size: 0.75rem;">
+                                    <i class="bi bi-layers-half"></i>
+                                </div>
+                                <span class="fw-bold text-white small">CRM Hub</span>
+                            </div>
+                            <div class="mockup-nav-item"><i class="bi bi-grid-1x2-fill"></i> Dashboard</div>
+                            <div class="mockup-nav-item"><i class="bi bi-building"></i> Customers</div>
+                            <div class="mockup-nav-item active"><i class="bi bi-kanban-fill"></i> Pipeline</div>
+                            <div class="mockup-nav-item"><i class="bi bi-trophy"></i> Deals</div>
+                            <div class="mockup-nav-item"><i class="bi bi-check2-circle"></i> Tasks</div>
+                            <div class="mt-auto pt-3 border-top border-secondary border-opacity-25">
+                                <div class="d-flex align-items-center gap-2 px-2">
+                                    <div class="rounded-circle bg-primary bg-opacity-25 text-primary text-center fw-bold" style="width: 28px; height: 28px; line-height: 28px; font-size: 0.75rem;">AD</div>
+                                    <div class="small">
+                                        <div class="text-white fw-semibold" style="font-size: 0.75rem;">Admin User</div>
+                                        <div class="text-muted" style="font-size: 0.65rem;">admin@crm.internal</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mini Main Workspace -->
+                        <div class="mockup-main-area">
+                            <!-- Mini Omnibar -->
+                            <div class="d-flex justify-content-between align-items-center pb-3 mb-3 border-bottom border-color">
+                                <div class="d-flex align-items-center gap-2 text-muted small">
+                                    <i class="bi bi-search"></i>
+                                    <span>Search leads, accounts, deals...</span>
+                                    <span class="badge bg-light text-muted border py-0 px-1" style="font-size: 0.65rem;">⌘K</span>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="badge bg-success-subtle text-success border border-success-subtle"><i class="bi bi-dot"></i> Live System</span>
+                                    <span class="btn btn-primary btn-sm py-1 px-2" style="font-size: 0.75rem;"><i class="bi bi-plus-lg me-1"></i> New Lead</span>
+                                </div>
+                            </div>
+
+                            <!-- Mini KPI Row -->
+                            <div class="row g-2 mb-3">
+                                <div class="col-6 col-lg-3">
+                                    <div class="p-2 rounded border bg-surface">
+                                        <span class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">Won Revenue</span>
+                                        <div class="fw-bold text-success fs-6">$184,500</div>
+                                        <small class="text-success" style="font-size: 0.68rem;"><i class="bi bi-arrow-up-right"></i> +18.4% MoM</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3">
+                                    <div class="p-2 rounded border bg-surface">
+                                        <span class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">Pipeline Value</span>
+                                        <div class="fw-bold text-main fs-6">$342,000</div>
+                                        <small class="text-info" style="font-size: 0.68rem;"><i class="bi bi-funnel"></i> 24 Opportunities</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3">
+                                    <div class="p-2 rounded border bg-surface">
+                                        <span class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">Win Rate</span>
+                                        <div class="fw-bold text-primary fs-6">68.2%</div>
+                                        <small class="text-primary" style="font-size: 0.68rem;"><i class="bi bi-graph-up"></i> Top Quartile</small>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-lg-3">
+                                    <div class="p-2 rounded border bg-surface">
+                                        <span class="text-muted text-uppercase fw-bold" style="font-size: 0.65rem;">Pending Tasks</span>
+                                        <div class="fw-bold text-warning fs-6">14</div>
+                                        <small class="text-success" style="font-size: 0.68rem;"><i class="bi bi-shield-check"></i> 0 Overdue</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mini Kanban Stage Columns Preview -->
+                            <div class="mockup-kanban-preview">
+                                <!-- Col 1: Qualified -->
+                                <div class="mockup-col">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold small text-main d-flex align-items-center gap-1">
+                                            <span class="rounded-circle bg-primary" style="width: 6px; height: 6px;"></span>
+                                            Qualified
+                                        </span>
+                                        <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">3</span>
+                                    </div>
+                                    <div class="mockup-card-item">
+                                        <div class="fw-semibold text-main">Nexus Health AI</div>
+                                        <div class="d-flex justify-content-between align-items-center mt-2 pt-1 border-top border-secondary border-opacity-10">
+                                            <span class="fw-bold text-success">$35,000</span>
+                                            <span class="badge bg-danger-subtle text-danger" style="font-size: 0.6rem;">High</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Col 2: Proposal -->
+                                <div class="mockup-col">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold small text-main d-flex align-items-center gap-1">
+                                            <span class="rounded-circle bg-info" style="width: 6px; height: 6px;"></span>
+                                            Proposal
+                                        </span>
+                                        <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">2</span>
+                                    </div>
+                                    <div class="mockup-card-item">
+                                        <div class="fw-semibold text-main">Apex Cloud Systems</div>
+                                        <div class="d-flex justify-content-between align-items-center mt-2 pt-1 border-top border-secondary border-opacity-10">
+                                            <span class="fw-bold text-success">$68,000</span>
+                                            <span class="badge bg-warning-subtle text-warning" style="font-size: 0.6rem;">Med</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Col 3: Negotiation -->
+                                <div class="mockup-col">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold small text-main d-flex align-items-center gap-1">
+                                            <span class="rounded-circle bg-warning" style="width: 6px; height: 6px;"></span>
+                                            Negotiation
+                                        </span>
+                                        <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">1</span>
+                                    </div>
+                                    <div class="mockup-card-item">
+                                        <div class="fw-semibold text-main">Global Logistics Ltd</div>
+                                        <div class="d-flex justify-content-between align-items-center mt-2 pt-1 border-top border-secondary border-opacity-10">
+                                            <span class="fw-bold text-success">$120,000</span>
+                                            <span class="badge bg-danger-subtle text-danger" style="font-size: 0.6rem;">High</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Col 4: Won -->
+                                <div class="mockup-col">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fw-bold small text-main d-flex align-items-center gap-1">
+                                            <span class="rounded-circle bg-success" style="width: 6px; height: 6px;"></span>
+                                            Closed Won
+                                        </span>
+                                        <span class="badge bg-light text-muted border" style="font-size: 0.65rem;">4</span>
+                                    </div>
+                                    <div class="mockup-card-item" style="border-left: 3px solid var(--accent-emerald);">
+                                        <div class="fw-semibold text-main">Acme Enterprise Corp</div>
+                                        <div class="d-flex justify-content-between align-items-center mt-2 pt-1 border-top border-secondary border-opacity-10">
+                                            <span class="fw-bold text-success">$85,000</span>
+                                            <span class="badge bg-success-subtle text-success" style="font-size: 0.6rem;">Converted</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics / Stats Strip -->
+    <section class="stats-strip">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-6 col-lg-3">
+                    <div class="stat-item border-end-lg">
+                        <div class="stat-metric text-primary">$48.5M+</div>
+                        <div class="stat-label">Pipeline Value Tracked</div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-item border-end-lg">
+                        <div class="stat-metric text-emerald">99.98%</div>
+                        <div class="stat-label">System Reliability</div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-item border-end-lg">
+                        <div class="stat-metric text-main">14,200+</div>
+                        <div class="stat-label">Deals Closed Won</div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="stat-item">
+                        <div class="stat-metric text-cyan">&lt; 120ms</div>
+                        <div class="stat-label">REST API Latency</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof / Partner Logos Strip -->
+    <section class="logos-strip">
+        <div class="container">
+            <p class="text-muted small text-uppercase fw-semibold tracking-wider mb-4" style="letter-spacing: 0.08em;">
+                Trusted by modern sales operations across high-growth companies
+            </p>
+            <div class="row align-items-center justify-content-center g-4">
+                <div class="col-6 col-md-2">
+                    <div class="partner-logo"><i class="bi bi-triangle-fill text-primary"></i> ACME CORP</div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="partner-logo"><i class="bi bi-hexagon-fill text-info"></i> NEXUS AI</div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="partner-logo"><i class="bi bi-circle-square text-success"></i> VERTEX LABS</div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="partner-logo"><i class="bi bi-bounding-box text-warning"></i> ORBIT SYSTEMS</div>
+                </div>
+                <div class="col-6 col-md-2">
+                    <div class="partner-logo"><i class="bi bi-shield-fill-check text-danger"></i> VANGUARD</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features Bento Grid Section -->
+    <section id="features" class="py-5 my-4">
+        <div class="container py-4">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill mb-2 fw-semibold">Capabilities</span>
+                <h2 class="fw-bold" style="font-size: 2.5rem; letter-spacing: -0.03em;">Everything Your Sales Team Needs to Win</h2>
+                <p class="text-muted" style="font-size: 1.05rem;">Eliminate administrative friction. Focus on closing deals and building high-value customer relationships.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Feature 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper" style="background: var(--primary-subtle); color: var(--primary);">
+                            <i class="bi bi-kanban-fill"></i>
+                        </div>
+                        <h4 class="feature-title">7-Stage Visual Kanban</h4>
+                        <p class="feature-description">
+                            Track prospects seamlessly across New, Contacted, Qualified, Proposal, Negotiation, Won, and Lost stages with instant pipeline velocity metrics.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper" style="background: var(--accent-emerald-subtle); color: var(--accent-emerald);">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                        </div>
+                        <h4 class="feature-title">1-Click Lead Conversion</h4>
+                        <p class="feature-description">
+                            Atomic database transactions convert won prospects directly into active Customer records and linked Primary Contacts without duplicate data entry.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper" style="background: var(--accent-cyan-subtle); color: var(--accent-cyan);">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Customer 360° Profile</h4>
+                        <p class="feature-description">
+                            Consolidate company details, multi-contact stakeholders, chronological meeting notes, opportunities, and scheduled activities in a single view.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper" style="background: var(--accent-amber-subtle); color: var(--accent-amber);">
+                            <i class="bi bi-graph-up-arrow"></i>
+                        </div>
+                        <h4 class="feature-title">Opportunity Valuations</h4>
+                        <p class="feature-description">
+                            Track expected close dates, win probabilities (0–100%), and calculate real-time weighted pipeline valuation alongside closed-won revenues.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper" style="background: var(--accent-rose-subtle); color: var(--accent-rose);">
+                            <i class="bi bi-calendar-check-fill"></i>
+                        </div>
+                        <h4 class="feature-title">Smart Overdue Tracking</h4>
+                        <p class="feature-description">
+                            Schedule Calls, Meetings, and Follow-ups with timezone awareness. Automatically flag late action items so no critical touchpoint goes cold.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon-wrapper" style="background: var(--accent-indigo-subtle); color: var(--accent-indigo);">
+                            <i class="bi bi-braces"></i>
+                        </div>
+                        <h4 class="feature-title">Production REST API</h4>
+                        <p class="feature-description">
+                            Complete Django REST Framework API layer with browsable documentation, session/basic authentication, pagination, and multi-field filters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Pipeline Workflow Section -->
+    <section id="workflow" class="workflow-section">
+        <div class="container py-4">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="badge bg-info-subtle text-info border border-info-subtle px-3 py-1 rounded-pill mb-2 fw-semibold">Guided Architecture</span>
+                <h2 class="fw-bold" style="font-size: 2.5rem; letter-spacing: -0.03em;">The High-Velocity Deal Journey</h2>
+                <p class="text-muted" style="font-size: 1.05rem;">How leads transform into long-term enterprise customers through our guided sales architecture.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="workflow-step-card">
+                        <div class="workflow-number">1</div>
+                        <h5 class="fw-bold mb-2">Capture & Ingest</h5>
+                        <p class="text-muted small mb-0">Record incoming inquiries from Website, LinkedIn, Events, Referrals, or direct cold outreach.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="workflow-step-card">
+                        <div class="workflow-number">2</div>
+                        <h5 class="fw-bold mb-2">Qualify & Pitch</h5>
+                        <p class="text-muted small mb-0">Log discovery notes, estimate deal values ($), assign sales reps, and advance across Kanban columns.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="workflow-step-card">
+                        <div class="workflow-number">3</div>
+                        <h5 class="fw-bold mb-2">1-Click Convert</h5>
+                        <p class="text-muted small mb-0">Atomically create the permanent Customer account, designate primary stakeholders, and mark the lead Won.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="workflow-step-card">
+                        <div class="workflow-number">4</div>
+                        <h5 class="fw-bold mb-2">Retain & Grow</h5>
+                        <p class="text-muted small mb-0">Track upsell opportunities, schedule follow-up calls, and measure closed-won revenue velocity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Role-Based Experience Solutions Section -->
+    <section id="solutions" class="py-5 my-4">
+        <div class="container py-4">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-3 py-1 rounded-pill mb-2 fw-semibold">Tailored Workspaces</span>
+                <h2 class="fw-bold" style="font-size: 2.5rem; letter-spacing: -0.03em;">Built for Every Sales Stakeholder</h2>
+                <p class="text-muted" style="font-size: 1.05rem;">Role-Based Access Control guarantees tailored views and data governance across your team.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="solution-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="kpi-icon-box" style="background: var(--accent-emerald-subtle); color: var(--accent-emerald);">
+                                <i class="bi bi-person-badge"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">For Sales Reps</h5>
+                                <span class="badge badge-role-sales">Sales Representative</span>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-3">Everything reps need to hit quota without administrative clutter.</p>
+                        <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0">
+                            <li><i class="bi bi-check2 text-success me-2"></i> Focused dashboard of assigned leads & accounts</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Drag-and-drop Kanban pipeline updates</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Overdue follow-up reminders with 1-click completion</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Quick notes logging during client meetings</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="solution-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="kpi-icon-box" style="background: var(--accent-amber-subtle); color: var(--accent-amber);">
+                                <i class="bi bi-briefcase"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">For Sales Managers</h5>
+                                <span class="badge badge-role-manager">Manager</span>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-3">Real-time oversight over team pipelines, rep allocations, and forecast accuracy.</p>
+                        <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0">
+                            <li><i class="bi bi-check2 text-success me-2"></i> Team-wide lead stage distribution metrics</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Pipeline valuation forecasts by stage</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Lead reassignment across sales personnel</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Deal probability and target close-date monitoring</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="solution-card">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="kpi-icon-box" style="background: var(--accent-rose-subtle); color: var(--accent-rose);">
+                                <i class="bi bi-shield-lock"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-0">For System Admins</h5>
+                                <span class="badge badge-role-admin">Administrator</span>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-3">Enterprise governance, role permissions, and system administration.</p>
+                        <ul class="list-unstyled small text-muted d-flex flex-column gap-2 mb-0">
+                            <li><i class="bi bi-check2 text-success me-2"></i> Direct access to Django Admin portal (`/admin/`)</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Full user, role, and permission provisioning</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> Data integrity, migrations, and database control</li>
+                            <li><i class="bi bi-check2 text-success me-2"></i> REST API configuration and integration governance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transparent Pricing Section -->
+    <section id="pricing" class="py-5 bg-subtle border-top border-bottom">
+        <div class="container py-4">
+            <div class="text-center max-w-700 mx-auto mb-5">
+                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1 rounded-pill mb-2 fw-semibold">Plans & Pricing</span>
+                <h2 class="fw-bold" style="font-size: 2.5rem; letter-spacing: -0.03em;">Predictable, Transparent Pricing</h2>
+                <p class="text-muted" style="font-size: 1.05rem;">Start free with our open-source release, or upgrade for enterprise support.</p>
+            </div>
+
+            <div class="row g-4 align-items-stretch">
+                <!-- Plan 1 -->
+                <div class="col-lg-4">
+                    <div class="pricing-card">
+                        <h5 class="fw-bold text-main mb-1">Starter Community</h5>
+                        <p class="text-muted small mb-0">For solo founders and small pilot teams.</p>
+                        <div class="pricing-price">$0</div>
+                        <span class="pricing-period">Forever free • Open source</span>
+
+                        <ul class="pricing-features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Up to 500 Customer Records</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Full 7-Stage Kanban Pipeline</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 1-Click Lead Conversion</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Standard Task Scheduling</li>
+                            <li><i class="bi bi-check-circle-fill"></i> SQLite Local Database</li>
+                        </ul>
+
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary py-2 fw-semibold w-100">
+                            Get Started Free
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Plan 2 (Featured) -->
+                <div class="col-lg-4">
+                    <div class="pricing-card featured">
+                        <div class="featured-badge">Most Popular</div>
+                        <h5 class="fw-bold text-main mb-1">Growth Pro</h5>
+                        <p class="text-muted small mb-0">For accelerating sales teams closing deals daily.</p>
+                        <div class="pricing-price text-primary">$29</div>
+                        <span class="pricing-period">per user / month (billed annually)</span>
+
+                        <ul class="pricing-features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Unlimited Accounts & Contacts</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Advanced Deal Probability Weighting</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Overdue Touchpoint Escalations</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Full Django REST API Access</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Chart.js Executive Visualizations</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Priority Support</li>
+                        </ul>
+
+                        <a href="{% url 'register' %}" class="btn btn-hero-primary py-2 fw-semibold w-100">
+                            Start 14-Day Free Trial
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Plan 3 -->
+                <div class="col-lg-4">
+                    <div class="pricing-card">
+                        <h5 class="fw-bold text-main mb-1">Enterprise Scale</h5>
+                        <p class="text-muted small mb-0">For high-volume sales organizations.</p>
+                        <div class="pricing-price">$79</div>
+                        <span class="pricing-period">per user / month (billed annually)</span>
+
+                        <ul class="pricing-features-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Everything in Growth Pro</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Custom Role Hierarchy & RBAC</li>
+                            <li><i class="bi bi-check-circle-fill"></i> PostgreSQL Production Architecture</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Custom Webhooks & API Throttling</li>
+                            <li><i class="bi bi-check-circle-fill"></i> Dedicated Account Manager</li>
+                            <li><i class="bi bi-check-circle-fill"></i> 99.9% Uptime SLA Guarantee</li>
+                        </ul>
+
+                        <a href="{% url 'register' %}" class="btn btn-outline-secondary py-2 fw-semibold w-100">
+                            Contact Sales
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Frequently Asked Questions -->
+    <section id="faq" class="py-5 my-4">
+        <div class="container py-4 max-w-800 mx-auto" style="max-width: 820px;">
+            <div class="text-center mb-5">
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-1 rounded-pill mb-2 fw-semibold">FAQ</span>
+                <h2 class="fw-bold" style="font-size: 2.3rem; letter-spacing: -0.03em;">Frequently Asked Questions</h2>
+                <p class="text-muted">Common questions about getting started with Enterprise CRM.</p>
+            </div>
+
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How does 1-click lead conversion work?
+                        </button>
+                    </h2>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            When a prospect agrees to purchase and reaches the Won stage, you can click "Convert to Customer". The backend executes an atomic transaction that creates a full Customer profile, generates a Primary Contact, sets the lead status to Won, and keeps all records connected with zero duplicate data entry.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            Can I try the system without creating a new account?
+                        </button>
+                    </h2>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes! Pre-configured demo credentials are provided right on the Sign In page. You can log in instantly as an Admin (<code>admin</code> / <code>admin123</code>), Manager (<code>manager1</code> / <code>manager123</code>), or Sales Representative (<code>sales1</code> / <code>sales123</code>) to explore all role-based features.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                            Is there a REST API for integrations?
+                        </button>
+                    </h2>
+                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes. Enterprise CRM includes a comprehensive Django REST Framework API at <code>/api/</code> with endpoints for Customers, Leads, Opportunities, Tasks, and Users, supporting both session and token authentication.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                            Does the platform support both Light and Dark modes?
+                        </button>
+                    </h2>
+                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes. The CRM features an intelligent theme toggle (sun/moon icon in the header) that seamlessly adjusts design tokens, text contrast, and Chart.js visualizations between light and dark modes, saving your preference in your browser.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final High-Impact CTA Banner -->
+    <section class="py-5">
+        <div class="container pb-4">
+            <div class="cta-banner-wrapper">
+                <span class="badge bg-primary bg-opacity-25 text-white border border-primary border-opacity-50 px-3 py-1 rounded-pill mb-3 fw-semibold">
+                    Get Started in Minutes
+                </span>
+                <h2 class="fw-bold mb-3" style="font-size: 2.6rem; letter-spacing: -0.03em;">
+                    Ready to Accelerate Your Sales Pipeline?
+                </h2>
+                <p class="text-white-50 mx-auto mb-4" style="max-width: 600px; font-size: 1.1rem;">
+                    Join high-velocity sales teams closing deals faster with visual Kanban pipelines, automated conversions, and 360° customer intelligence.
+                </p>
+
+                <!-- Demo Credentials Pill -->
+                <div class="d-inline-flex align-items-center gap-3 bg-black bg-opacity-40 border border-secondary border-opacity-25 rounded-pill px-4 py-2 mb-4 small text-white-50">
+                    <span><i class="bi bi-key-fill text-warning me-1"></i> Demo: <code>admin</code> / <code>admin123</code></span>
+                    <span>•</span>
+                    <span><code>sales1</code> / <code>sales123</code></span>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap">
+                    <a href="{% url 'login' %}" class="btn btn-hero-primary" style="padding: 14px 36px; font-size: 1rem;">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Launch Live Workspace
+                    </a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-light" style="padding: 14px 30px; font-size: 1rem;">
+                        Create Free Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SaaS Landing Footer -->
+    <footer class="landing-footer">
+        <div class="container">
+            <div class="row g-4 pb-4 border-bottom border-color mb-4">
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="brand-icon me-2">
+                            <i class="bi bi-layers-half"></i>
+                        </div>
+                        <span class="brand-title" style="color: var(--text-main);">Enterprise</span>
+                        <span class="brand-badge">CRM</span>
+                    </div>
+                    <p class="text-muted small mb-3" style="max-width: 320px;">
+                        The full-stack, enterprise-grade CRM engineered for small-to-midsize businesses. Built with Django, Bootstrap, and DRF.
+                    </p>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-success-subtle text-success border border-success-subtle">
+                            <i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> All Systems Operational
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-main mb-3 small text-uppercase" style="letter-spacing: 0.05em;">Product</h6>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                        <li><a href="#features" class="text-muted text-decoration-none">Capabilities</a></li>
+                        <li><a href="#workflow" class="text-muted text-decoration-none">Kanban Pipeline</a></li>
+                        <li><a href="#solutions" class="text-muted text-decoration-none">Role Solutions</a></li>
+                        <li><a href="#pricing" class="text-muted text-decoration-none">Pricing Plans</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-main mb-3 small text-uppercase" style="letter-spacing: 0.05em;">Developer</h6>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                        <li><a href="/api/" class="text-muted text-decoration-none">REST API Portal</a></li>
+                        <li><a href="/admin/" class="text-muted text-decoration-none">Admin Console</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">Django 5+ Architecture</a></li>
+                        <li><a href="#" class="text-muted text-decoration-none">API Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-main mb-3 small text-uppercase" style="letter-spacing: 0.05em;">Workspaces</h6>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                        <li><a href="{% url 'login' %}" class="text-muted text-decoration-none">Admin Portal</a></li>
+                        <li><a href="{% url 'login' %}" class="text-muted text-decoration-none">Manager Suite</a></li>
+                        <li><a href="{% url 'login' %}" class="text-muted text-decoration-none">Sales Rep Desk</a></li>
+                        <li><a href="{% url 'register' %}" class="text-muted text-decoration-none">Registration</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-bold text-main mb-3 small text-uppercase" style="letter-spacing: 0.05em;">Security</h6>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+                        <li><span class="text-muted">CSRF Protection</span></li>
+                        <li><span class="text-muted">Session Security</span></li>
+                        <li><span class="text-muted">OWASP Hardened</span></li>
+                        <li><span class="text-muted">Role Permissions</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-between small text-muted gap-2">
+                <div>
+                    &copy; {% now "Y" %} Enterprise CRM SaaS. All rights reserved.
+                </div>
+                <div class="d-flex gap-3">
+                    <a href="{% url 'login' %}" class="text-muted text-decoration-none">Sign In</a>
+                    <span>•</span>
+                    <a href="{% url 'register' %}" class="text-muted text-decoration-none">Register</a>
+                    <span>•</span>
+                    <a href="/admin/" class="text-muted text-decoration-none">System Admin</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Theme Toggle Script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggleBtn = document.getElementById('themeToggleBtn');
+        const sunIcon = document.getElementById('themeSunIcon');
+        const moonIcon = document.getElementById('themeMoonIcon');
+        
+        function updateThemeIcons(theme) {
+            if (theme === 'dark') {
+                sunIcon.classList.add('d-none');
+                moonIcon.classList.remove('d-none');
+            } else {
+                sunIcon.classList.remove('d-none');
+                moonIcon.classList.add('d-none');
+            }
+        }
+
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+        updateThemeIcons(currentTheme);
+
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                const current = document.documentElement.getAttribute('data-bs-theme');
+                const nextTheme = current === 'dark' ? 'light' : 'dark';
+                document.documentElement.setAttribute('data-bs-theme', nextTheme);
+                localStorage.setItem('crm_theme', nextTheme);
+                updateThemeIcons(nextTheme);
+            });
+        }
+    });
+    </script>
+</body>
+</html>

@@ -9,6 +9,10 @@ from leads.models import Lead
 from opportunities.models import Opportunity
 from tasks.models import Task
 
+def landing_page_view(request):
+    """Public SaaS landing page view for prospective users and visitors."""
+    return render(request, 'landing.html')
+
 
 @login_required
 def dashboard_view(request):

@@ -8,30 +8,33 @@ Welcome to the **Enterprise Small-Business CRM Platform**. This documentation ex
 1. [Core Architecture & CRM Lifecycle](#1-core-architecture--crm-lifecycle)
 2. [User Roles & Access Levels](#2-user-roles--access-levels)
 3. [Quick Start & Accessing the System](#3-quick-start--accessing-the-system)
-4. [Step-by-Step Workflow Guides](#4-step-by-step-workflow-guides)
+4. [Public Marketing Landing Page & Onboarding](#4-public-marketing-landing-page--onboarding)
+5. [Authentication & 1-Click Demo Login](#5-authentication--1-click-demo-login)
+6. [Step-by-Step Operational Workflow Guides](#6-step-by-step-operational-workflow-guides)
    - [A. Executive Dashboard & Analytics](#a-executive-dashboard--analytics)
-   - [B. Lead Generation & Kanban Pipeline](#b-lead-generation--kanban-pipeline)
-   - [C. 1-Click Lead-to-Customer Conversion](#c-1-click-lead-to-customer-conversion)
-   - [D. Customer Account & Contact Management](#d-customer-account--contact-management)
+   - [B. Lead Generation & Visual Kanban Pipeline](#b-lead-generation--visual-kanban-pipeline)
+   - [C. 1-Click Lead-to-Customer Atomic Conversion](#c-1-click-lead-to-customer-atomic-conversion)
+   - [D. Customer 360° & Contact Management](#d-customer-360-and-contact-management)
    - [E. Opportunity & Deal Tracking](#e-opportunity--deal-tracking)
    - [F. Tasks, Activities & Overdue Follow-ups](#f-tasks-activities--overdue-follow-ups)
-   - [G. User Profiles & System Settings](#g-user-profiles--system-settings)
-5. [Top Navigation, Shortcuts & Global Search](#5-top-navigation-shortcuts--global-search)
-6. [Django REST Framework API Access](#6-django-rest-framework-api-access)
-7. [Developer & Deployment Reference](#7-developer--deployment-reference)
+   - [G. User Profiles & Workspace Settings](#g-user-profiles--workspace-settings)
+7. [Enterprise Django Admin Portal (`/admin/`)](#7-enterprise-django-admin-portal-admin)
+8. [Global Navigation, Shortcuts & Omni-Search](#8-global-navigation-shortcuts--omni-search)
+9. [Django REST Framework API Access](#9-django-rest-framework-api-access)
+10. [Developer & Deployment Reference](#10-developer--deployment-reference)
 
 ---
 
 ## 1. Core Architecture & CRM Lifecycle
 
-The application automates the sales journey from first prospect contact to closing deals and retaining long-term customer accounts.
+The application automates the end-to-end sales journey from first marketing touchpoint to closing revenue and retaining long-term client accounts.
 
 ```mermaid
 graph TD
-    A[New Lead / Inquiry] -->|Sales Rep Outreach| B(Contacted)
-    B -->|Discovery & Budget Check| C(Qualified)
+    A[Marketing Landing Page / Inbound Lead] -->|Sales Rep Outreach| B(Contacted)
+    B -->|Discovery & Budget Qualification| C(Qualified)
     C -->|Send Proposal & Quote| D(Proposal)
-    D -->|Contract Review| E(Negotiation)
+    D -->|Contract Review & Terms| E(Negotiation)
     E -->|Deal Won!| F[1-Click Lead Conversion]
     E -->|Deal Lost| L[Mark Lost]
     F -->|Atomic Database Transaction| G[(Active Customer Record)]
@@ -56,7 +59,7 @@ The CRM implements Role-Based Access Control (RBAC) via a custom user model:
 
 | Role | Default Access Scope | Capabilities |
 | :--- | :--- | :--- |
-| 🛡️ **Admin** | System-wide | Full operational rights across all accounts, leads, deals, tasks, plus direct access to the **Django Admin Portal** (`/admin/`). |
+| 🛡️ **Admin** | System-wide | Full operational rights across all accounts, leads, deals, tasks, plus direct governance over the **Django Admin Portal** (`/admin/`). |
 | 💼 **Manager** | Team & Pipeline Oversight | Full visibility into all customer accounts, team pipeline values, stage transitions, and managerial analytics. |
 | 👤 **Sales Rep** | Assigned Accounts & Daily Sales | Day-to-day operations: managing assigned prospects, moving leads through stages, updating customer records, creating deals, and logging follow-up tasks. |
 
@@ -83,37 +86,87 @@ Open your web browser and navigate to:
 ```
 http://127.0.0.1:8000/
 ```
-If you are not authenticated, you will automatically be redirected to the **Sign In** page (`/accounts/login/`).
+- **Unauthenticated Visitors**: Will see the high-converting **Public Marketing Landing Page**.
+- **Authenticated Users**: Are automatically redirected to the **Executive Dashboard** (`/dashboard/`).
 
 ---
 
-## 4. Step-by-Step Workflow Guides
+## 4. Public Marketing Landing Page & Onboarding
+
+- **URL**: `http://127.0.0.1:8000/`
+- **Purpose**: Welcomes visitors, explains the CRM platform's business value, and allows prospective clients or new team members to learn about the system before signing in.
+
+### Key Sections:
+1. **Interactive Navigation Bar**:
+   - Company branding (`Enterprise CRM`).
+   - Feature jump-links: *Features*, *ROI Calculator*, *Testimonials*, *Security*.
+   - Direct buttons for **Sign In** and **Start Free Trial**.
+   - Dual theme toggle (**Light Mode / Dark Mode**).
+2. **Hero Showcase**:
+   - Compelling headline and sub-headline highlighting sales acceleration.
+   - Call-to-action buttons (*"Get Started Free"*, *"Explore Live Demo"*).
+   - Live stat chips highlighting metrics (e.g., *99.9% Uptime*, *4.9/5 Rating*).
+3. **Core Feature Pillars**:
+   - Visual cards explaining Lead Kanban tracking, Customer 360° timelines, Revenue Forecasting, and Overdue Activity tracking.
+4. **Interactive ROI Calculator**:
+   - Dynamic client-side sliders allowing visitors to adjust **Sales Team Size** and **Average Deal Size**.
+   - Real-time instant calculation of **Projected Annual Revenue Lift ($)** and **Hours Saved Weekly**.
+5. **Enterprise Security & Social Proof**:
+   - Testimonials from sales leaders and badges for SOC2 compliance, 256-bit encryption, and RBAC governance.
+
+---
+
+## 5. Authentication & 1-Click Demo Login
+
+- **Login URL**: `http://127.0.0.1:8000/accounts/login/`
+- **Register URL**: `http://127.0.0.1:8000/accounts/register/`
+
+### 1-Click Quick Demo Login:
+To make demonstration and onboarding immediate, the sign-in page includes clickable **Demo Credential Pills** directly on the card:
+- Clicking **`Admin`** autofills `admin` / `admin123`.
+- Clicking **`Manager`** autofills `manager1` / `manager123`.
+- Clicking **`Sales Rep`** autofills `sales1` / `sales123`.
+
+### Additional Sign-In Features:
+- **Password Visibility Toggle**: Click the eye icon (`👁️`) to toggle password visibility.
+- **Remember Me**: Persistent session cookie support.
+- **Return to Landing Page**: Direct link back to the public homepage at any time.
+
+---
+
+## 6. Step-by-Step Operational Workflow Guides
 
 ### A. Executive Dashboard & Analytics
 - **URL**: `http://127.0.0.1:8000/dashboard/`
 - **Purpose**: High-level executive overview of sales velocity and urgent tasks.
-- **Key Features**:
-  - **4 KPI Metric Cards**:
-    - **Total Accounts**: Total customer accounts currently in the CRM.
-    - **Active Prospects**: Number of active leads in qualification.
-    - **Won Revenue**: Real-time sum of closed-won opportunities + total pipeline valuation.
-    - **Pending Tasks**: Active action items, with immediate visual badges if any task is **Overdue**.
-  - **Lead Pipeline Distribution**: Interactive doughnut chart displaying the proportion of prospects in each stage.
-  - **Deal Valuation by Stage**: Bar chart aggregating monetary values ($) by deal stage.
-  - **Live Feeds**: Recent client accounts, incoming leads, and upcoming action items with direct links.
+
+#### 1. KPI Metric Cards
+- **Total Accounts**: Total customer accounts currently in the CRM with percentage growth indicators.
+- **Active Prospects**: Number of active leads currently undergoing qualification.
+- **Won Revenue**: Real-time sum of closed-won opportunities + total pipeline valuation.
+- **Pending Tasks**: Active action items, with an immediate visual alert badge if any task is **Overdue**.
+
+#### 2. Interactive Chart.js Visuals
+- **Lead Pipeline Distribution**: Interactive doughnut chart displaying the proportion of prospects in each stage (`New`, `Contacted`, `Qualified`, `Proposal`, `Negotiation`, `Won`, `Lost`).
+- **Opportunity Deal Valuation**: Bar chart aggregating monetary values ($) across deal stages.
+- *Both charts dynamically adapt to Light and Dark mode color palettes in real-time.*
+
+#### 3. Live Activity Feeds
+- **Recent Accounts**: Quick list of recently onboarded client companies with direct profile links.
+- **Urgent Action Items**: Tasks due today or overdue with quick completion toggles.
 
 ---
 
-### B. Lead Generation & Kanban Pipeline
+### B. Lead Generation & Visual Kanban Pipeline
 - **List View**: `http://127.0.0.1:8000/leads/`
 - **Kanban Board**: `http://127.0.0.1:8000/leads/pipeline/`
 
 #### 1. Adding a New Lead
-1. Click the **`+ New`** button in the top navbar or on the Leads page and choose **`New Lead`**.
+1. Click the **`+ New`** button in the top navbar and choose **`New Lead`**.
 2. Complete the lead details:
    - **Title**: Short summary of the prospect opportunity (e.g. `Cloud Migration Project`).
    - **Contact Name & Company**: First name, last name, and organization.
-   - **Email & Phone**: Primary communication channel.
+   - **Email & Phone**: Primary communication channels.
    - **Lead Source**: Website, Referral, Cold Call, LinkedIn, Event, or Other.
    - **Stage**: New, Contacted, Qualified, Proposal, Negotiation, Won, or Lost.
    - **Priority**: Low, Medium, or High.
@@ -130,7 +183,7 @@ Navigate to **Leads & Pipeline** → **Kanban Pipeline** (`/leads/pipeline/`):
 
 ---
 
-### C. 1-Click Lead-to-Customer Conversion
+### C. 1-Click Lead-to-Customer Atomic Conversion
 When a prospect agrees to terms and is marked **WON**:
 1. From the Lead Detail page or Kanban card, click **`Convert to Customer`**.
 2. You will be prompted with a confirmation screen summarizing the customer record to be generated.
@@ -143,7 +196,7 @@ When a prospect agrees to terms and is marked **WON**:
 
 ---
 
-### D. Customer Account & Contact Management
+### D. Customer 360° and Contact Management
 - **Customer List**: `http://127.0.0.1:8000/customers/`
 - **Customer Detail**: `http://127.0.0.1:8000/customers/<id>/`
 
@@ -202,28 +255,62 @@ The Opportunity page automatically calculates:
 
 ---
 
-### G. User Profiles & System Settings
+### G. User Profiles & Workspace Settings
 - **URL**: `http://127.0.0.1:8000/accounts/profile/`
 - View your operational role, assigned customer account counts, active leads, and pending tasks.
 - Update your First Name, Last Name, Email Address, Phone Number, and Bio.
 
 ---
 
-## 5. Top Navigation, Shortcuts & Global Search
+## 7. Enterprise Django Admin Portal (`/admin/`)
 
-The top header is pinned across all pages and provides the following features:
+- **URL**: `http://127.0.0.1:8000/admin/`
+- **Access**: Requires `is_staff` or `ADMIN` role.
 
-| Feature | How to Use |
-| :--- | :--- |
-| **Global Omni-Search** | Click the search box or press **`Ctrl+K`** (or `⌘K` on Mac) to immediately focus and search records across the system. |
-| **`+ New` Quick Create** | Click the primary dropdown button in the top right to instantly create a Lead, Customer, Deal, or Task from anywhere. |
-| **Theme Toggle (Sun/Moon)** | Click the sun/moon button to switch between **Light Mode** and **Dark Mode**. Your preference is saved in your browser. |
-| **User Profile Dropdown** | Click your user initials/avatar in the top right to access **Account Settings**, **My Activities**, or **Sign Out**. |
-| **Mobile Drawer** | On mobile or tablet devices, click the hamburger icon (`☰`) to open the sliding navigation drawer. |
+The Django Admin has been overhauled into an enterprise data management console with dedicated styling, quick navigation, and rich operational controls.
+
+### 1. Branding & Header Controls
+- **Enterprise Title**: Header displays `Enterprise CRM Administration` with custom typography and badge pill.
+- **Direct Navigation Shortcuts**: Quick buttons directly in the top right to open the **CRM Dashboard** (`/dashboard/`) or public **Website** (`/`) in new tabs without having to change URLs manually.
+
+### 2. ModelAdmin Enhancements
+- **User Management (`accounts.User`)**:
+  - Displays username, full name, email, and color-coded role badges (`Admin` in red, `Manager` in amber, `Sales Representative` in blue).
+  - Bulk actions to reassign roles or toggle active/inactive status in one click.
+- **Customer Governance (`customers.Customer`)**:
+  - Color-coded status badges (`Active Customer`, `Lead`, `Inactive`).
+  - Total linked contacts count and aggregated won revenue display ($).
+  - Tabular inlines for immediate inspection of linked contacts and activity notes.
+- **Lead Pipeline Management (`leads.Lead`)**:
+  - 7-stage status pills and priority badges (`High`, `Medium`, `Low`).
+  - Formatted currency values ($) and date hierarchy filters.
+  - Bulk actions: *Advance to Qualified*, *Advance to Proposal*, *Mark as Won*, *Mark as Lost*.
+- **Opportunity Management (`opportunities.Opportunity`)**:
+  - Formatted deal valuation and visual win probability progress bars (`0–100%`).
+  - Dynamic weighted value calculation (`Deal Value × Probability`).
+  - Overdue warning alerts on expected closing dates that have lapsed.
+- **Task Management (`tasks.Task`)**:
+  - Task type icon pills (`📞 Call`, `👥 Meeting`, `🔄 Follow-up`, `✅ Task`).
+  - Dynamic `🚨 OVERDUE` indicator for incomplete tasks past their deadline.
+  - Bulk actions: *Mark Completed*, *Mark In Progress*, *Mark Pending*.
 
 ---
 
-## 6. Django REST Framework API Access
+## 8. Global Navigation, Shortcuts & Omni-Search
+
+The top navigation header is available across the entire platform and provides:
+
+| Feature | Shortcut / Usage | Description |
+| :--- | :--- | :--- |
+| **Global Omni-Search** | **`Ctrl+K`** (or `⌘K` on Mac) | Instantly focuses the search input to locate accounts, leads, deals, or contacts across the entire CRM. |
+| **`+ New` Quick Create** | Click **`+ New`** button | Dropdown menu allowing instant creation of a Lead, Customer, Opportunity, or Task from anywhere. |
+| **Theme Switcher** | Sun / Moon Icon | One-click toggle between **Light Mode** and **Dark Mode**. Persists across browser refreshes via `localStorage`. |
+| **User Profile Menu** | Avatar Dropdown | Access your Profile, My Tasks, or Sign Out with role display. |
+| **Mobile Drawer** | Hamburger (`☰`) | Smooth sliding off-canvas navigation menu for mobile and tablet screens. |
+
+---
+
+## 9. Django REST Framework API Access
 
 The application includes a REST API powered by Django REST Framework (DRF):
 
@@ -248,7 +335,7 @@ You can inspect schemas, send `POST` payloads, and test filters directly in your
 
 ---
 
-## 7. Developer & Deployment Reference
+## 10. Developer & Deployment Reference
 
 ### Running System Tests
 Run the automated test suite covering models, roles, conversions, and API responses:

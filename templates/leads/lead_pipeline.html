@@ -23,7 +23,7 @@
     <div class="kanban-column">
         <div class="kanban-column-header">
             <div class="d-flex align-items-center gap-2">
-                <span class="rounded-circle" style="width: 8px; height: 8px; background: {% if stage_code == 'WON' %}var(--accent-emerald){% elif stage_code == 'LOST' %}var(--accent-rose){% elif stage_code == 'NEGOTIATION' %}var(--accent-amber){% else %}var(--primary){% endif %};"></span>
+                <span class="stage-dot stage-dot-{{ stage_code|lower }}"></span>
                 <span>{{ stage_data.label }}</span>
             </div>
             <span class="badge bg-light text-muted border rounded-pill">{{ stage_data.leads|length }}</span>
